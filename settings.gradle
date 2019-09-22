@@ -1,0 +1,2 @@
+include ':gps-component'
+rootProject.name='Location Component'
