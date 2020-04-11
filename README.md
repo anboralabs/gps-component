@@ -1,6 +1,3 @@
-# gps-component
-GPS Android component with lifecycle
-
 # GPS Component
 
 GPS Component: It is a library to avoid boilerplate code with Android GPS. This project uses Android architecture components to managing life cycle states.
