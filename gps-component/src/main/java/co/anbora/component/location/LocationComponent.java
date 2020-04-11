@@ -171,7 +171,6 @@ public class LocationComponent implements OnLastLocationListener
     public static class Builder {
 
         private LocationSettings locationSettings;
-        private LocationRequest locationRequest;
 
         public Builder locationSettings(LocationSettings locationSettings) {
 
@@ -179,18 +178,13 @@ public class LocationComponent implements OnLastLocationListener
             return this;
         }
 
-        public Builder locationRequest(long requestIntervalUpdate,
-                                       long requestFastestIntervalUpdate,
-                                       int requestPriority) {
+        public LocationComponent build(Context context, LocationUpdate locationUpdate) {
 
-            locationRequest = LocationRequest.create();
-            locationRequest.setInterval(requestIntervalUpdate);
-            locationRequest.setFastestInterval(requestFastestIntervalUpdate);
-            locationRequest.setPriority(requestPriority);
-            return this;
-        }
+            LocationRequest locationRequest = LocationRequest.create();
+            locationRequest.setInterval(locationUpdate.getInterval());
+            locationRequest.setFastestInterval(locationUpdate.getFastInterval());
+            locationRequest.setPriority(locationUpdate.getPriority());
 
-        public LocationComponent build(Context context) {
             return new LocationComponent(context,
                     locationSettings,
                     locationRequest,
