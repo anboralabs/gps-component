@@ -19,6 +19,8 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Objects;
+
 import static androidx.lifecycle.Lifecycle.State.STARTED;
 
 
@@ -179,6 +181,10 @@ public class LocationComponent implements OnLastLocationListener
         }
 
         public LocationComponent build(Context context, LocationUpdate locationUpdate) {
+
+            if (context == null || locationUpdate == null) {
+                throw new NullPointerException("Objects context and locationUpdate can't be null");
+            }
 
             LocationRequest locationRequest = LocationRequest.create();
             locationRequest.setInterval(locationUpdate.getInterval());
