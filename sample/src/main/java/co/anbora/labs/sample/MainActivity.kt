@@ -1,14 +1,13 @@
 package co.anbora.labs.sample
 
 import android.Manifest
-import android.content.IntentSender.SendIntentException
 import android.location.Location
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import co.anbora.component.location.CallbackLocation
 import co.anbora.component.location.LocationComponent
-import co.anbora.component.location.LocationSettings
+import co.anbora.component.location.LocationUpdate
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -20,17 +19,19 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var locationComponent: LocationComponent
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         requestPermission()
 
-        locationComponent = LocationComponent.Builder()
-            .locationRequest(10000, 10000, 100)
-            .build(this)
+        val locationUpdate = LocationUpdate(
+            10, 10,
+            LocationUpdate.PRIORITY_HIGH_ACCURACY
+        );
+
+        val locationComponent = LocationComponent.Builder()
+            .build(this, locationUpdate)
 
         locationComponent
             .onLastLocation(LastLocationCallback())
