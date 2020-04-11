@@ -19,6 +19,8 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Objects;
+
 import static androidx.lifecycle.Lifecycle.State.STARTED;
 
 
@@ -171,7 +173,6 @@ public class LocationComponent implements OnLastLocationListener
     public static class Builder {
 
         private LocationSettings locationSettings;
-        private LocationRequest locationRequest;
 
         public Builder locationSettings(LocationSettings locationSettings) {
 
@@ -179,18 +180,17 @@ public class LocationComponent implements OnLastLocationListener
             return this;
         }
 
-        public Builder locationRequest(long requestIntervalUpdate,
-                                       long requestFastestIntervalUpdate,
-                                       int requestPriority) {
+        public LocationComponent build(Context context, LocationUpdate locationUpdate) {
 
-            locationRequest = LocationRequest.create();
-            locationRequest.setInterval(requestIntervalUpdate);
-            locationRequest.setFastestInterval(requestFastestIntervalUpdate);
-            locationRequest.setPriority(requestPriority);
-            return this;
-        }
+            if (context == null || locationUpdate == null) {
+                throw new NullPointerException("Objects context and locationUpdate can't be null");
+            }
 
-        public LocationComponent build(Context context) {
+            LocationRequest locationRequest = LocationRequest.create();
+            locationRequest.setInterval(locationUpdate.getInterval());
+            locationRequest.setFastestInterval(locationUpdate.getFastInterval());
+            locationRequest.setPriority(locationUpdate.getPriority());
+
             return new LocationComponent(context,
                     locationSettings,
                     locationRequest,
