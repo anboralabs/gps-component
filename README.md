@@ -7,7 +7,16 @@ GPS Component: It is a library to avoid boilerplate code with Android GPS. This 
 Add dependency with gradle.
 
 ```gradle
-pip install foobar
+allprojects {
+        repositories {
+                ...
+                maven { url 'https://jitpack.io' }
+        }
+}
+```
+
+```gradle
+implementation 'com.github.anboralabs:gps-component:1.2.0'
 ```
 
 ## Usage
