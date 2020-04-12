@@ -1,4 +1,4 @@
-# GPS Component
+# GPS Component [![](https://jitpack.io/v/anboralabs/gps-component.svg)](https://jitpack.io/#anboralabs/gps-component)
 
 GPS Component: It is a library to avoid boilerplate code with Android GPS. This project uses Android architecture components to managing life cycle states.
 
